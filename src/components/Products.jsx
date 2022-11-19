@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -9,14 +10,10 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
-      const response = await fetch("https://api.itbook.store/1.0/", {
-        method: "GET",
-        headers: new Headers({ "Content-type": "application/json" }),
-        mode: "no-cors",
-      });
+      const response = await fetch("https://fakestoreapi.com/products");
       if (componentMounted) {
         setData(await response.clone().json());
-        // setFilter(await response.json());
+        setFilter(await response.json());
         setLoading(false);
         console.log(filter);
       }
@@ -28,18 +25,84 @@ const Products = () => {
   }, []);
 
   const Loading = () => {
-    return <>Loading....</>;
+    return (
+      <>
+        <div className="col-md-3">
+          <Skeleton height={350} />
+        </div>
+        <div className="col-md-3">
+          <Skeleton height={350} />
+        </div>
+        <div className="col-md-3">
+          <Skeleton height={350} />
+        </div>
+        <div className="col-md-3">
+          <Skeleton height={350} />
+        </div>
+      </>
+    );
+  };
+
+  const filterProduct = (cat) => {
+    const updatedList = data.filter((x) => x.category === cat);
+    setFilter(updatedList);
   };
 
   const ShowProducts = () => {
     return (
       <>
         <div className="buttons d-flex justify-content-center mb-5 pb-5">
-          <button className="btn btn-outline-dark me-4 py-3">All</button>
-          <button className="btn btn-outline-dark me-4 py-3">Javascript</button>
-          <button className="btn btn-outline-dark me-4 py-3">Html5</button>
-          <button className="btn btn-outline-dark me-4 py-3">CSS3</button>
+          <button
+            className="btn btn-outline-dark me-4 py-3"
+            onClick={() => setFilter(data)}>
+            All
+          </button>
+          <button
+            className="btn btn-outline-dark me-4 py-3"
+            onClick={() => filterProduct("men's clothing")}>
+            Javascript
+          </button>
+          <button
+            className="btn btn-outline-dark me-4 py-3"
+            onClick={() => filterProduct("women's clothing")}>
+            Html5
+          </button>
+          <button
+            className="btn btn-outline-dark me-4 py-3"
+            onClick={() => filterProduct("jewelery")}>
+            CSS3
+          </button>
+          <button
+            className="btn btn-outline-dark me-4 py-3"
+            onClick={() => filterProduct("electronics")}>
+            Java
+          </button>
         </div>
+        {filter.map((product) => {
+          return (
+            <>
+              <div className="col-md-3 mb-4">
+                <div className="card h-100 text-center p-4" key={product.id}>
+                  <img
+                    src={product.image}
+                    className="card-img-top"
+                    alt={product.title}
+                    height="300px"
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title mb-0">
+                      {product.title.substring(0, 12)}
+                    </h5>
+                    <p className="card-text fw-bold">${product.price}</p>
+                    <a href="#" className="btn btn-outline-dark">
+                      Detalles
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </>
+          );
+        })}
       </>
     );
   };
