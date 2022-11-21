@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-light bg-white py-3 shadow-sm">
@@ -38,15 +45,34 @@ const Navbar = () => {
               </li>
             </ul>
             <div className="button">
-              <Link to="/signin" className="btn btn-outline-dark">
-                <i className="fa fa-sign-in me-1"></i>Login
-              </Link>
-              <Link to="/signup" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-user-plus me-1"></i>Register
-              </Link>
+              {user ? (
+                <Link
+                  to="/"
+                  onClick={handleLogout}
+                  className="btn btn-outline-dark">
+                  <i className="fa fa-arrow-left me-1" aria-hidden="true"></i>
+                  Logout
+                </Link>
+              ) : (
+                <Link to="/signin" className="btn btn-outline-dark">
+                  <i className="fa fa-sign-in me-1"></i>
+                  Login
+                </Link>
+              )}
+              {user ? (
+                ""
+              ) : (
+                <Link to="/signup" className="btn btn-outline-dark ms-2">
+                  <i className="fa fa-user-plus me-1"></i>Register
+                </Link>
+              )}
               <Link to="#" className="btn btn-outline-dark ms-2">
                 <i className="fa fa-shopping-cart me-1"></i>Cart (0)
               </Link>
+              <Link to="#" className="btn btn-dark ms-2 me-1">
+                <i className="fa fa-user" aria-hidden="true"></i>
+              </Link>
+              <span>Hello {user ? user.email : "Guest"}</span>
             </div>
           </div>
         </div>

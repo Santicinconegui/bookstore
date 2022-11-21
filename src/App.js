@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { AuthProvider } from "./context/authContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -12,7 +13,14 @@ function App() {
       <AuthProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
         </Routes>
