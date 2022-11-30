@@ -1,16 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import { useSelector } from "react-redux";
+import "bootstrap/js/dist/collapse";
+import "bootstrap/js/dist/dropdown";
+import "bootstrap/js/dist/offcanvas";
 
 const Navbar = () => {
+  const state = useSelector((state) => state.handleCart);
   const { user, logout } = useAuth();
-
   const handleLogout = async () => {
     await logout();
   };
 
   return (
-    <div>
+    <div className="container-navbar">
       <nav className="navbar navbar-expand-lg bg-light bg-white py-3 shadow-sm">
         <div className="container">
           <Link className="navbar-brand fw-bold fs-4" to="/">
@@ -19,9 +23,9 @@ const Navbar = () => {
           <button
             className="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="navbarNavDropdown"
             aria-expanded="false"
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -34,12 +38,12 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#">
+                <Link className="nav-link" to="/products">
                   Products
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="#">
+                <Link className="nav-link" to="/contact">
                   Contact
                 </Link>
               </li>
@@ -66,8 +70,8 @@ const Navbar = () => {
                   <i className="fa fa-user-plus me-1"></i>Register
                 </Link>
               )}
-              <Link to="#" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-shopping-cart me-1"></i>Cart (0)
+              <Link to="/cart" className="btn btn-outline-dark ms-2">
+                <i className="fa fa-shopping-cart me-1"></i>({state.length})
               </Link>
               <Link to="#" className="btn btn-dark ms-2 me-1">
                 <i className="fa fa-user" aria-hidden="true"></i>
@@ -77,6 +81,72 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+      <div
+        class="offcanvas offcanvas-start"
+        tabindex="-1"
+        id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+            BOOK | STORE
+          </h5>
+          <button
+            type="button"
+            class="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="dropdown mt-3">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/">
+                  Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/products">
+                  Products
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/contact">
+                  Contact
+                </Link>
+              </li>
+            </ul>
+            <div className="button">
+              {user ? (
+                <Link
+                  to="/"
+                  onClick={handleLogout}
+                  className="btn btn-outline-dark">
+                  <i className="fa fa-arrow-left me-1" aria-hidden="true"></i>
+                  Logout
+                </Link>
+              ) : (
+                <Link to="/signin" className="btn btn-outline-dark">
+                  <i className="fa fa-sign-in me-1"></i>
+                  Login
+                </Link>
+              )}
+              {user ? (
+                ""
+              ) : (
+                <Link to="/signup" className="btn btn-outline-dark ms-2">
+                  <i className="fa fa-user-plus me-1"></i>Register
+                </Link>
+              )}
+              <Link to="/cart" className="btn btn-outline-dark ms-2">
+                <i className="fa fa-shopping-cart me-1"></i>({state.length})
+              </Link>
+              <Link to="#" className="btn btn-dark ms-2 me-1">
+                <i className="fa fa-user" aria-hidden="true"></i>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

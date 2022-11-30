@@ -57,7 +57,7 @@ const Login = () => {
     <div className="container-formulario">
       <div className="form-div">
         <form onSubmit={handleSubmit}>
-          <span className="login--tittle">LOGIN</span>
+          <span className="login--tittle">LOG IN</span>
           <span className="login--subtittle">to continue please log in!</span>
           <div className="wrap2">
             <label>Email</label>
@@ -81,8 +81,11 @@ const Login = () => {
             <span className="focus-input2"></span>
           </div>
           {error && <span className="error-form">{error}</span>}
+          <button className="btn--form" type="submit">
+            Login
+          </button>
         </form>
-        <button className="btn--form">Login</button>
+
         <span className="login--info">
           Forgot password?
           <Link onClick={handleResetPassword}> Click Here!</Link>

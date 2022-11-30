@@ -36,7 +36,7 @@ const Register = () => {
     <div className="container-formulario">
       <div className="form-div">
         <form onSubmit={handleSubmit}>
-          <span className="login--tittle">Registration Form!</span>
+          <span className="login--tittle">Sign up here!</span>
           <div className="wrap">
             <div className="f1">
               <label>Name</label>
@@ -81,8 +81,10 @@ const Register = () => {
             <span className="focus-input2"></span>
           </div>
           {error && <span className="error-form">{error}</span>}
+          <button className="btn--form_register" type="submit">
+            Register
+          </button>
         </form>
-        <button className="btn--form_register">Register</button>
       </div>
       <div className="image-form">
         <img src="/assets/form.jpg" alt="formbackground" className="img-form" />

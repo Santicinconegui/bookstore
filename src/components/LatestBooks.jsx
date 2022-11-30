@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 const LatestBooks = () => {
-  const URL_API = "https://api.itbook.store/1.0/search/java";
+  const URL_API = "https://api.itbook.store/1.0/new";
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -22,18 +22,9 @@ const LatestBooks = () => {
   const Loading = () => {
     return (
       <>
-        <div className="col-md-3">
-          <Skeleton height={350} />
-        </div>
-        <div className="col-md-3">
-          <Skeleton height={350} />
-        </div>
-        <div className="col-md-3">
-          <Skeleton height={350} />
-        </div>
-        <div className="col-md-3">
-          <Skeleton height={350} />
-        </div>
+        <span className="spinner-detail">
+          <Spinner animation="border" />
+        </span>
       </>
     );
   };
@@ -45,7 +36,7 @@ const LatestBooks = () => {
           return (
             <>
               <div className="col-md-3 mb-4">
-                <div className="card h-100 text-center p-4" key={book.isbn13}>
+                <div key={book.isbn13} className="card h-100 text-center p-4">
                   <img
                     src={book.image}
                     className="card-img-top"
@@ -58,7 +49,7 @@ const LatestBooks = () => {
                     <Link
                       to={`/books/${book.isbn13}`}
                       className="btn btn-outline-dark">
-                      Detalles
+                      More Details
                     </Link>
                   </div>
                 </div>
@@ -75,7 +66,7 @@ const LatestBooks = () => {
       <div className="container my-4 py-5">
         <div className="row">
           <div className="col-12 mb-5">
-            <h1 className="display-6 fw-bolder text-center">Our books</h1>
+            <h1 className="display-6 fw-bolder text-center">Latest Books</h1>
             <hr />
           </div>
         </div>

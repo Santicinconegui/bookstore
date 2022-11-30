@@ -1,5 +1,5 @@
 import React from "react";
-import Products from "./Products";
+import LatestBooks from "./LatestBooks";
 
 const Home = () => {
   return (
@@ -22,7 +22,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Products />
+      <LatestBooks />
     </div>
   );
 };
