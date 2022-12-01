@@ -1,24 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Spinner from "react-bootstrap/esm/Spinner";
 
 const LatestBooks = () => {
   const URL_API = "https://api.itbook.store/1.0/new";
-  const [books, setBooks] = useState([]);
+  const [newBooks, setNewBooks] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const getProducts = async () => {
-      fetch(URL_API)
-        .then((res) => res.json())
-        .then((res) => {
-          setBooks(res.books);
-          setLoading(false);
-        });
+    const sendGetRequest = async () => {
+      try {
+        const response = await axios.get(URL_API);
+        setNewBooks(response.data);
+        console.log(" Response.data", response.data);
+      } catch (error) {
+        setError(error);
+      }
+      setLoading(false);
     };
-
-    getProducts();
+    sendGetRequest();
   }, []);
+  if (!newBooks) {
+    return null;
+  }
 
+  if (error) {
+    return `Lo siento hay un error: ${error.message}`;
+  }
   const Loading = () => {
     return (
       <>
@@ -32,16 +41,15 @@ const LatestBooks = () => {
   const ShowProducts = () => {
     return (
       <>
-        {books.map((book) => {
+        {newBooks.books.map((book, index) => {
           return (
             <>
-              <div className="col-md-3 mb-4">
-                <div key={book.isbn13} className="card h-100 text-center p-4">
+              <div className="col-md-3 mb-4" key={index}>
+                <div className="card h-100 text-center p-4">
                   <img
                     src={book.image}
                     className="card-img-top"
                     alt={book.title}
-                    height="300px"
                   />
                   <div className="card-body">
                     <h5 className="card-title mb-0">{book.title}</h5>

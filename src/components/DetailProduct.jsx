@@ -44,10 +44,12 @@ const ShowProduct = ({ book }) => {
   const addProduct = (book) => {
     dispatch(addCart(book));
   };
+  const tempPrice = book.price.slice(1);
+  const convertedPrice = Number(tempPrice);
   return (
     <div className="container">
       {book && (
-        <div className="container-book">
+        <div className="container-book" key={book.isbn13}>
           <div className="col-md-7">
             <img src={book.image} alt={book.title} className="img-detail" />
           </div>
@@ -60,9 +62,10 @@ const ShowProduct = ({ book }) => {
               <i className="fa fa-star"></i>
             </p>
             <div className="container-detail">
-              <h3 className="display-6 fw-bold my-4">{book.price}</h3>
-              {book.price === "$0.00" && (
-                <p style={{ color: "red" }}>¡Producto sin stock!</p>
+              <h3 className="display-6 fw-bold my-4"> $ {convertedPrice}</h3>
+              <h5 className="  my-4">ISBN : "{book.isbn13}"</h5>
+              {convertedPrice === 0.0 && (
+                <p style={{ color: "red" }}>¡Product without stock !</p>
               )}
               <p className="lead">{book.desc}</p>
               {book.price > "$0.00" && (

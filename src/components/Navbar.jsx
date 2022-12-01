@@ -42,11 +42,6 @@ const Navbar = () => {
                   Products
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact">
-                  Contact
-                </Link>
-              </li>
             </ul>
             <div className="button">
               {user ? (
@@ -82,22 +77,22 @@ const Navbar = () => {
         </div>
       </nav>
       <div
-        class="offcanvas offcanvas-start"
+        className="offcanvas offcanvas-start"
         tabindex="-1"
         id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title" id="offcanvasExampleLabel">
             BOOK | STORE
           </h5>
           <button
             type="button"
-            class="btn-close text-reset"
+            className="btn-close text-reset"
             data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
-          <div class="dropdown mt-3">
+        <div className="offcanvas-body">
+          <div className="dropdown mt-3">
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">

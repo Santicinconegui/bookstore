@@ -7,9 +7,9 @@ import Register from "./components/Register";
 import { AuthProvider } from "./context/authContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Products from "./components/Products";
-import Contact from "./components/Contanct";
 import Cart from "./components/Cart";
 import DetailProduct from "./components/DetailProduct";
+import Checkout from "./components/checkoutForm/Checkout";
 
 function App() {
   return (
@@ -34,10 +34,11 @@ function App() {
             }
           />
           <Route path="/books/:isbn13" element={<DetailProduct />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/signin" element={<Login />} />
           <Route path="/signup" element={<Register />} />
+
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </AuthProvider>
     </>
