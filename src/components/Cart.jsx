@@ -14,6 +14,7 @@ const Cart = () => {
     dispatch(delCart(item));
   };
 
+  //si el cart esta vacio que retorne lo siguiente
   const emptyCart = () => {
     return (
       <div className="px-4 my-5 bg-light rounded-3 py-5">

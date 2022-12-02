@@ -1,111 +1,48 @@
-import * as React from "react";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { Button, Grid, Typography } from "@mui/material";
+import React from "react";
+import { Link } from "react-router-dom";
+
+import { useForm, FormProvider } from "react-hook-form";
+import AdressInput from "./AdressInput";
 
 export default function AddressForm() {
+  const methods = useForm(); //captura datos del furmulario
+
   return (
-    <React.Fragment>
+    //AdressInput componente que recibe atributos que son capturados por el formProvider
+    <>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Shipping adress
       </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="firstName"
-            name="firstName"
-            label="First name"
-            fullWidth
-            autoComplete="given-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="lastName"
-            name="lastName"
-            label="Last name"
-            fullWidth
-            autoComplete="family-name"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required
-            id="address1"
-            name="address1"
-            label="Address line 1"
-            fullWidth
-            autoComplete="shipping address-line1"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="shipping address-line2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="City"
-            fullWidth
-            autoComplete="shipping address-level2"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="State/Province"
-            fullWidth
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="zip"
-            label="Zip / Postal code"
-            fullWidth
-            autoComplete="shipping postal-code"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="country"
-            label="Country"
-            fullWidth
-            autoComplete="shipping country"
-            variant="standard"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
-            }
-            label="Use this address for payment details"
-          />
-        </Grid>
-      </Grid>
-    </React.Fragment>
+
+      <FormProvider {...methods}>
+        <form
+          onSubmit={methods.handleSubmit((data) => {
+            console.log(data);
+          })}>
+          <Grid container spacing={3}>
+            <AdressInput required name="firstName" label="First Name" />
+            <AdressInput required name="LastName" label="Last Name" />
+            <AdressInput required name="adress1" label="Adress" />
+            <AdressInput required name="email" label="Email" />
+            <AdressInput required name="city" label="City" />
+            <AdressInput required name="postCode" label="Post Code" />
+          </Grid>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "1rem",
+            }}>
+            <Button component={Link} to="/cart">
+              Back to checkout page
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Next
+            </Button>
+          </div>
+        </form>
+      </FormProvider>
+    </>
   );
 }

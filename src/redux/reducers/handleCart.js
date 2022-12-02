@@ -4,10 +4,10 @@ const handleCart = (state = cart, action) => {
   const book = action.payload;
   switch (action.type) {
     case "ADDITEM":
-      // Check if book already exists
+      // Check si el libro existe
       const exist = state.find((x) => x.isbn13 === book.isbn13);
       if (exist) {
-        // Increase the quantity
+        // Incrementar cantidad
         return state.map((x) =>
           x.isbn13 === book.isbn13 ? { ...x, qty: x.qty + 1 } : x
         );
