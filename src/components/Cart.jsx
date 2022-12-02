@@ -30,13 +30,12 @@ const Cart = () => {
   const cartItems = (book, index) => {
     const tempPrice = book.price.slice(1);
     const convertedPrice = Number(parseInt(tempPrice));
-    const totalQty = convertedPrice * book.qty;
 
     return (
       <>
         <div className="px-4 my-5 bg-light rounded-3 py-5" key={index}>
           <div className="container py-4">
-            <div className="row justify-content-center" key={book.isbn13}>
+            <div className="row justify-content-center">
               <div className="col-md-4">
                 <img
                   src={book.image}
@@ -48,7 +47,7 @@ const Cart = () => {
               <div className="col-md-4">
                 <h3>{book.title}</h3>
                 <p className="lead fw-bold">
-                  $ {convertedPrice} X {book.qty} = ${totalQty}
+                  ${convertedPrice} x {book.qty} = ${convertedPrice * book.qty}
                 </p>
                 <button
                   className="btn btn-outline-dark me-4"
@@ -63,6 +62,7 @@ const Cart = () => {
               </div>
             </div>
           </div>
+          <div></div>
         </div>
       </>
     );
@@ -82,7 +82,6 @@ const Cart = () => {
       </>
     );
   };
-
   return (
     <div>
       {state.length === 0 && emptyCart()}

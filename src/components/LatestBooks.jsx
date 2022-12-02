@@ -13,7 +13,6 @@ const LatestBooks = () => {
       try {
         const response = await axios.get(URL_API);
         setNewBooks(response.data);
-        console.log(" Response.data", response.data);
       } catch (error) {
         setError(error);
       }
