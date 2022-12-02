@@ -1,42 +1,23 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addCart, delCart } from "../redux/action";
+import { useStateValue } from "../context/StateProvider";
 import { Link } from "react-router-dom";
+import { actionTypes } from "../reducer";
 
 const Cart = () => {
-  const state = useSelector((state) => state.handleCart);
-  const dispatch = useDispatch();
+  const [{ cart }, dispatch] = useStateValue();
+  const removeItem = () =>
+    dispatch({
+      type: actionTypes.DELITEM,
+      isbn13: isbn13,
+    });
 
-  const handleAdd = (item) => {
-    dispatch(addCart(item));
-  };
-  const handleDel = (item) => {
-    dispatch(delCart(item));
-  };
-
-  //si el cart esta vacio que retorne lo siguiente
-  const emptyCart = () => {
-    return (
-      <div className="px-4 my-5 bg-light rounded-3 py-5">
-        <div className="container py-4">
-          <div className="row">
-            <h3>Your Cart is Empty</h3>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const cartItems = (book, index) => {
-    const tempPrice = book.price.slice(1);
-    const convertedPrice = Number(parseInt(tempPrice));
-
-    return (
-      <>
-        <div className="px-4 my-5 bg-light rounded-3 py-5" key={index}>
+  return (
+    <>
+      {cart?.map((book, index) => (
+        <div className="px-4 my-5 bg-light rounded-3 py-5" key={book.isbn13}>
           <div className="container py-4">
             <div className="row justify-content-center">
-              <div className="col-md-4">
+              <div className="col-md-4 ">
                 <img
                   src={book.image}
                   alt={book.title}
@@ -47,29 +28,33 @@ const Cart = () => {
               <div className="col-md-4">
                 <h3>{book.title}</h3>
                 <p className="lead fw-bold">
-                  ${convertedPrice} x {book.qty} = ${convertedPrice * book.qty}
+                  ${Number(book.price.slice(1))} x {book.qty} = $
+                  {Number(book.price.slice(1)) * book.qty}
                 </p>
                 <button
                   className="btn btn-outline-dark me-4"
-                  onClick={() => handleDel(book)}>
-                  <i className="fa fa-minus"></i>
+                  onClick={removeItem()}>
+                  <i className="fa fa-minus">+</i>
                 </button>
-                <button
-                  className="btn btn-outline-dark"
-                  onClick={() => handleAdd(book)}>
+                <button className="btn btn-outline-dark">
                   <i className="fa fa-plus"></i>
                 </button>
               </div>
             </div>
           </div>
-          <div></div>
         </div>
-      </>
-    );
-  };
-  const buttons = () => {
-    return (
-      <>
+      ))}
+      {cart.length === 0 && (
+        <div className="px-4 my-5 bg-light rounded-3 py-5">
+          <div className="container py-4">
+            <div className="row">
+              <h3>Your Cart is Empty</h3>
+            </div>
+          </div>
+        </div>
+      )}
+      ,
+      {cart.length !== 0 && (
         <div className="container">
           <div className="row">
             <Link
@@ -79,15 +64,8 @@ const Cart = () => {
             </Link>
           </div>
         </div>
-      </>
-    );
-  };
-  return (
-    <div>
-      {state.length === 0 && emptyCart()}
-      {state.length !== 0 && state.map(cartItems)}
-      {state.length !== 0 && buttons()}
-    </div>
+      )}
+    </>
   );
 };
 

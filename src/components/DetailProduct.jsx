@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { addCart } from "../redux/action";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, useParams } from "react-router-dom";
+import { actionTypes } from "../reducer";
+import { useStateValue } from "../context/StateProvider";
 
 const DetailProduct = () => {
   const { isbn13 } = useParams();
@@ -40,12 +40,20 @@ const Loading = () => {
 };
 
 const ShowProduct = ({ book }) => {
-  const dispatch = useDispatch();
-  const addProduct = (book) => {
-    dispatch(addCart(book));
-  };
+  const [{ cart }, dispatch] = useStateValue();
   const tempPrice = book.price.slice(1);
   const convertedPrice = Number(tempPrice);
+  const addProduct = (book) => {
+    dispatch({
+      type: actionTypes.ADD_TO_CART,
+      book: {
+        title: book.title,
+        image: book.image,
+        price: book.price,
+        isbn13: book.isbn13,
+      },
+    });
+  };
   return (
     <div className="container">
       {book && (
