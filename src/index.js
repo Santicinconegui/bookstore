@@ -8,15 +8,18 @@ import "../node_modules/font-awesome/css/font-awesome.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import Reducer from "./components/Reducer";
+import Reducer, { initialState, reducer } from "./components/Reducer";
+import { StateProvider } from "./context/StateProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const store = createStore(Reducer);
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <StateProvider initialState={initialState} reducer={reducer}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StateProvider>
   </BrowserRouter>
 );
 

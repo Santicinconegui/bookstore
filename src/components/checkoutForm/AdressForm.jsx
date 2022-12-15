@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import AdressInput from "./AdressInput";
 import { actionTypes } from "../Reducer";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function AddressForm({ nextStep }) {
   const methods = useForm(); //captura datos del furmulario
-  const state = useSelector((state) => state.handleCart);
   const dispatch = useDispatch();
-  console.log(state);
 
   return (
     //AdressInput componente que recibe atributos que son capturados por el formProvider

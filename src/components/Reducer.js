@@ -1,4 +1,4 @@
-const Reducer = (cart = [], action) => {
+const Reducer = (cart = [], action, state) => {
   if (action.type === "ADD_BOOK") {
     let tempcart = cart.filter((book) => book.isbn13 === action.payload.isbn13);
     if (tempcart < 1) {
@@ -28,14 +28,19 @@ const Reducer = (cart = [], action) => {
     });
     return tempcart;
   }
+  if (action.type === "EMPTY_CART") {
+    return { ...state, cart: action.cart };
+  }
   return cart;
 };
 export const initialState = {
   shippingData: {},
+  paymentMessage: "",
 };
 
 export const actionTypes = {
   SET_SHIPPINGDATA: "SET_SHIPPINGDATA",
+  SET_PAYMENT_MESSAGE: "SET_PAYMENT_MESSAGE",
 };
 
 export const reducer = (state, action) => {
@@ -44,6 +49,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         shippingData: action.shippingData,
+      };
+    case "SET_PAYMENT_MESSAGE":
+      return {
+        ...state,
+        paymentMessage: action.paymentMessage,
       };
 
     default:
