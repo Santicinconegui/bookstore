@@ -23,7 +23,6 @@ function Copyright() {
 }
 
 const steps = ["Shipping address", "Payment details"];
-
 const theme = createTheme();
 
 export default function Checkout() {
@@ -33,7 +32,11 @@ export default function Checkout() {
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const Form = () =>
-    activeStep === 0 ? <AddressForm nextStep={nextStep} /> : <PaymentForm />;
+    activeStep === 0 ? (
+      <AddressForm nextStep={nextStep} />
+    ) : (
+      <PaymentForm backStep={backStep} nextStep={nextStep} />
+    );
 
   return (
     <ThemeProvider theme={theme}>

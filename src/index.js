@@ -6,15 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/font-awesome/css/font-awesome.min.css";
 import { BrowserRouter } from "react-router-dom";
-import { StateProvider } from "./context/StateProvider";
-import reducer, { initialState } from "./reducer";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import Reducer from "./components/Reducer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const store = createStore(Reducer);
 root.render(
   <BrowserRouter>
-    <StateProvider initialState={initialState} reducer={reducer}>
+    <Provider store={store}>
       <App />
-    </StateProvider>
+    </Provider>
   </BrowserRouter>
 );
 

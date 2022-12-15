@@ -41,6 +41,8 @@ const LatestBooks = () => {
     return (
       <>
         {newBooks.books.map((book, index) => {
+          const tempPrice = book.price.slice(1);
+          const convertedPrice = Number(parseInt(tempPrice));
           return (
             <>
               <div className="col-md-3 mb-4" key={index}>
@@ -52,7 +54,7 @@ const LatestBooks = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title mb-0">{book.title}</h5>
-                    <p className="card-text fw-bold">{book.price}</p>
+                    <p className="card-text fw-bold">${convertedPrice}</p>
                     <Link
                       to={`/books/${book.isbn13}`}
                       className="btn btn-outline-dark">

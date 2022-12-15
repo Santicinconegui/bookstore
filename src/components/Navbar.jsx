@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import { useSelector } from "react-redux";
 import "bootstrap/js/dist/collapse";
 import "bootstrap/js/dist/dropdown";
 import "bootstrap/js/dist/offcanvas";
 
 const Navbar = () => {
+  const state = useSelector((state) => state);
   const { user, logout } = useAuth();
+  const cart = useSelector((state) => state);
   const handleLogout = async () => {
     await logout();
   };
@@ -64,7 +67,7 @@ const Navbar = () => {
                 </Link>
               )}
               <Link to="/cart" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-shopping-cart me-1"></i>(x)
+                <i className="fa fa-shopping-cart me-1"></i>({state.length})
               </Link>
               <Link to="#" className="btn btn-dark ms-2 me-1">
                 <i className="fa fa-user" aria-hidden="true"></i>
@@ -131,7 +134,7 @@ const Navbar = () => {
                 </Link>
               )}
               <Link to="/cart" className="btn btn-outline-dark ms-2">
-                <i className="fa fa-shopping-cart me-1"></i>(x)
+                <i className="fa fa-shopping-cart me-1"></i>({state.length})
               </Link>
               <Link to="#" className="btn btn-dark ms-2 me-1">
                 <i className="fa fa-user" aria-hidden="true"></i>
