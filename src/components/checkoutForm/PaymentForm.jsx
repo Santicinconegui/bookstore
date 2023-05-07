@@ -12,7 +12,6 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import { CARD_ELEMENT_OPTION } from "./CardOptions";
 import axios from "axios";
-
 import { useStateValue } from "../../context/StateProvider";
 import { actionTypes } from "../Reducer";
 import { useState } from "react";
@@ -47,7 +46,7 @@ const CheckoutForm = ({ backStep, nextStep }) => {
           "http://localhost:3001/api/checkout",
           {
             id,
-            amount: total * 100,
+            amount: total,
           }
         );
 
@@ -55,10 +54,11 @@ const CheckoutForm = ({ backStep, nextStep }) => {
           type: actionTypes.SET_PAYMENT_MESSAGE,
           paymentMessage: data.message,
         });
-        if (data.message === "sucecesful payment") {
-          return {
+        if (data.message === "succesful payment") {
+          dispatch({
+            type: "EMPTY_CART",
             cart: [],
-          };
+          });
         }
         // alert(data.message);
         elements.getElement(CardElement).clear();

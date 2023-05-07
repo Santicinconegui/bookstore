@@ -9,6 +9,7 @@ import "bootstrap/js/dist/offcanvas";
 const Navbar = () => {
   const state = useSelector((state) => state);
   const { user, logout } = useAuth();
+  console.log(user);
   const cart = useSelector((state) => state);
   const handleLogout = async () => {
     await logout();
@@ -103,11 +104,6 @@ const Navbar = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/products">
                   Products
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact">
-                  Contact
                 </Link>
               </li>
             </ul>

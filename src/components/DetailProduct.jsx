@@ -40,13 +40,15 @@ const Loading = () => {
 
 const ShowProduct = ({ book }) => {
   const cart = useSelector((state) => state);
-  console.log(cart);
+  // console.log(cart);
   const dispatch = useDispatch();
   const tempPrice = book.price.slice(1);
   const convertedPrice = Number(parseInt(tempPrice));
+  {
+    book.qty = 1;
+  }
   return (
     <div className="container">
-      {(book.qty = 1)}
       {book && (
         <div className="container-book" key={book.isbn13}>
           <div className="col-md-7">

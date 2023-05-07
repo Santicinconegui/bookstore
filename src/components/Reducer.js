@@ -29,11 +29,16 @@ const Reducer = (cart = [], action, state) => {
     return tempcart;
   }
   if (action.type === "EMPTY_CART") {
-    return { ...state, cart: action.cart };
+    return {
+      ...state,
+      cart: action.cart,
+    };
   }
+
   return cart;
 };
 export const initialState = {
+  cart: [],
   shippingData: {},
   paymentMessage: "",
 };
@@ -55,7 +60,6 @@ export const reducer = (state, action) => {
         ...state,
         paymentMessage: action.paymentMessage,
       };
-
     default:
       return state;
   }
