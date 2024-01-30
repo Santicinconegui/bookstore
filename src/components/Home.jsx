@@ -1,12 +1,13 @@
 import React from "react";
 import LatestBooks from "./LatestBooks";
+import backgroundHome from "../assets/bg.jpg";
 
 const Home = () => {
   return (
     <div className="hero">
       <div className="card bg-dark text-black fw-bold border-0">
         <img
-          src="/assets/bg.jpg"
+          src={backgroundHome}
           className="card-img"
           alt="Background"
           height="800px"

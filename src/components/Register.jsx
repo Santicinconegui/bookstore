@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import formbackground from "../assets/form.jpg";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -87,7 +88,7 @@ const Register = () => {
         </form>
       </div>
       <div className="image-form">
-        <img src="/assets/form.jpg" alt="formbackground" className="img-form" />
+        <img src={formbackground} alt="formbackground" className="img-form" />
       </div>
     </div>
   );

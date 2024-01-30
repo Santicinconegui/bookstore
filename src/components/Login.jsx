@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
+import formbackground from "../assets/form.jpg";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -57,7 +58,7 @@ const Login = () => {
     <div className="container-formulario">
       <div className="form-div">
         <form onSubmit={handleSubmit}>
-          <span className="login--tittle">LOG IN</span>
+          <span className="login--tittle">LOGIN</span>
           <span className="login--subtittle">to continue please log in!</span>
           <div className="wrap2">
             <label>Email</label>
@@ -99,7 +100,7 @@ const Login = () => {
         </button>
       </div>
       <div className="image-form">
-        <img src="/assets/form.jpg" alt="formbackground" className="img-form" />
+        <img src={formbackground} alt="formbackground" className="img-form" />
       </div>
     </div>
   );
