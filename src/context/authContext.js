@@ -44,7 +44,6 @@ export function AuthProvider({ children }) {
   const resetPassword = (email) => {
     sendPasswordResetEmail(auth, email);
   };
-
   //reset password//
   //almacenar informacion del usuario
   useEffect(() => {

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Toast } from "react-bootstrap";
 
 const DetailProduct = () => {
   const { isbn13 } = useParams();
   const [book, setBook] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const getProduct = () => {
       fetch(`https://api.itbook.store/1.0/books/${isbn13}`)
@@ -44,9 +44,17 @@ const ShowProduct = ({ book }) => {
   const dispatch = useDispatch();
   const tempPrice = book.price.slice(1);
   const convertedPrice = Number(parseInt(tempPrice));
+  const [showToast, setShowToast] = useState(false);
   {
     book.qty = 1;
   }
+  const handleAddToCart = () => {
+    dispatch({ type: "ADD_BOOK", payload: book });
+    setShowToast(true); // Actualiza el estado para mostrar la notificación
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+  };
   return (
     <div className="container">
       {book && (
@@ -73,9 +81,7 @@ const ShowProduct = ({ book }) => {
                 <>
                   <button
                     className="btn btn-outline-dark px-4 py-2"
-                    onClick={() =>
-                      dispatch({ type: "ADD_BOOK", payload: book })
-                    }>
+                    onClick={handleAddToCart}>
                     Add to Cart
                   </button>
                 </>
@@ -87,6 +93,18 @@ const ShowProduct = ({ book }) => {
           </div>
         </div>
       )}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        style={{
+          position: "absolute",
+          right: 20,
+          top: 90,
+          backgroundColor: "black", // Color de fondo negro
+          color: "white", // Texto en color blanco para mayor contraste
+        }}>
+        <Toast.Body>¡Producto agregado al carrito con éxito!</Toast.Body>
+      </Toast>
     </div>
   );
 };
