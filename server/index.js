@@ -10,7 +10,7 @@ const stripe = new Stripe(
 
 //middleware
 
-app.use(cors({ origin: "https://bookstore-ecom-serv.vercel.app/" })); //peticion para que sean aceptados los datos enviados desde el puerto 3000
+app.use(cors({ origin: "https://bookstoree-six.vercel.app/" })); //peticion para que sean aceptados los datos enviados desde el puerto 3000
 
 app.use(express.json());
 
